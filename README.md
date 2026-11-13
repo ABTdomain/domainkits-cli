@@ -4,11 +4,11 @@ Command-line client for the [DomainKits](https://domainkits.com) REST API.
 
 This is the official command-line client for the DomainKits API, published and maintained by the DomainKits team. DomainKits is built and operated by Lyalpha GmbH, with domain data and infrastructure provided by [ABTdomain](https://abtdomain.com), our domain intelligence and data aggregation platform. This repository is hosted under the ABTdomain GitHub organisation. Learn more about the relationship at [domainkits.com/about](https://domainkits.com/about).
 
-Every parameter, response field and current limit is documented in the [API reference](https://domainkits.com/dev/api-docs) and the [OpenAPI spec](https://domainkits.com/dev/openapi.yaml). This README only lists what the CLI covers. One binary, no dependencies.
+The [CLI guide](https://domainkits.com/dev/cli) covers installation, every command, output and exit codes, and scripting recipes. Every parameter, response field and current limit is documented in the [API reference](https://domainkits.com/dev/api-docs) and the [OpenAPI spec](https://domainkits.com/dev/openapi.yaml). This README only lists what the CLI covers. One binary, no dependencies.
 
 ## Requirements
 
-The REST API is for Premium and Platinum accounts; unauthenticated requests are rejected with 401. Keys start with `dk_` and come from [domainkits.com](https://domainkits.com/pricing). The same key works for the REST API, the SDKs, the MCP server and this CLI.
+The REST API is for Premium and Platinum accounts, except the daily NRD file download (`dk download`), which works on every plan; unauthenticated requests are rejected with 401. Keys start with `dk_` and are created on your [dashboard](https://domainkits.com/dashboard); see [pricing](https://domainkits.com/pricing) to compare plans. The same key works for the REST API, the SDKs, the MCP server and this CLI.
 
 ## Install
 
@@ -57,6 +57,7 @@ Parameters after the command go to the API unchanged, as `key=value`, `--key=val
 
 ## Resources
 
+- [CLI guide](https://domainkits.com/dev/cli)
 - [API reference and key management](https://domainkits.com/dev)
 - [OpenAPI 3.0 spec](https://domainkits.com/dev/openapi.yaml)
 - [About DomainKits and ABTdomain](https://domainkits.com/about)
