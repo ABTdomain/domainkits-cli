@@ -1,34 +1,20 @@
 # domainkits-cli
 
-Command-line client for the [DomainKits](https://domainkits.com) REST API.
+Command-line client for the [DomainKits](https://domainkits.com) domain data API. `dk` is written in Go and ships as one binary with no dependencies.
 
-This is the official command-line client for the DomainKits API, published and maintained by the DomainKits team. DomainKits is built and operated by Lyalpha GmbH, with domain data and infrastructure provided by [ABTdomain](https://abtdomain.com), our domain intelligence and data aggregation platform. This repository is hosted under the ABTdomain GitHub organisation. Learn more about the relationship at [domainkits.com/about](https://domainkits.com/about).
+## What it does
 
-The [CLI guide](https://domainkits.com/dev/cli) covers installation, every command, output and exit codes, and scripting recipes. Every parameter, response field and current limit is documented in the [API reference](https://domainkits.com/dev/api-docs) and the [OpenAPI spec](https://domainkits.com/dev/openapi.yaml). This README only lists what the CLI covers. One binary, no dependencies.
+It puts domain data in your terminal, so AI agents and scripts can work with it one command at a time: each command returns the data as the API sends it, and the exit code says how the call went. Pick the commands you need and chain them into your own workflow:
 
-## Requirements
+- **Lifecycle**: [newly registered domains](https://github.com/ABTdomain/newly-registered-domains) as a search or as the daily list, [expired domains](https://github.com/ABTdomain/expired-domains) as a search or as an exported file, and deleted, aged, active and for-sale domains
+- **Registration**: WHOIS data, the registrar, and what each EPP status code means
+- **DNS and hosting**: DNS records, the network behind an IP, and other domains on the same nameserver
+- **Certificates**: subdomains, certificates and newly seen hostnames from CT logs
+- **Footprint**: the same name across TLDs, and typosquat variants around a brand
+- **Trends**: keyword and TLD registration trends
+- **Changes**: transfers, drops, renewals and nameserver updates on high-value domains
 
-The REST API is for Premium and Platinum accounts, except the daily NRD file download (`dk download`), which works on every plan; unauthenticated requests are rejected with 401. Keys start with `dk_` and are created on your [dashboard](https://domainkits.com/dashboard); see [pricing](https://domainkits.com/pricing) to compare plans. The same key works for the REST API, the SDKs, the MCP server and this CLI.
-
-## Install
-
-Download the archive for your platform from [Releases](https://github.com/ABTdomain/domainkits-cli/releases), or install with Go:
-
-```bash
-go install github.com/ABTdomain/domainkits-cli/cmd/dk@latest
-```
-
-## Usage
-
-```bash
-export DOMAINKITS_API_KEY=dk_...      # PowerShell: $env:DOMAINKITS_API_KEY = "dk_..."
-dk search nrds query=ai tld=com limit=20
-dk whois example.com
-dk ct subdomains github.com
-dk help
-```
-
-Parameters after the command go to the API unchanged, as `key=value`, `--key=value` or `--key value`. The response body is printed as returned. `export=csv`, `export=txt` and `download` write a file instead. Exit code 0 is success, 1 an API error, 2 a usage or network error.
+▶ [See how it is used](#use-it-for)
 
 ## Commands
 
@@ -53,7 +39,61 @@ Parameters after the command go to the API unchanged, as `key=value`, `--key=val
 | `download` | `/nrds/download` |
 | `usage` | `/usage` |
 | `health` | `/health` |
-| `get <path>`, `post <path> <json>` | any endpoint |
+| `get <path>`, `post <path> <json>` | other endpoints |
+
+Parameters for each command are in the [CLI guide](https://domainkits.com/dev/cli).
+
+## Install
+
+Download the archive for your platform from [Releases](https://github.com/ABTdomain/domainkits-cli/releases), or install with Go:
+
+```bash
+go install github.com/ABTdomain/domainkits-cli/cmd/dk@latest
+```
+
+Set your key and run a command:
+
+```bash
+export DOMAINKITS_API_KEY=dk_...      # PowerShell: $env:DOMAINKITS_API_KEY = "dk_..."
+dk search nrds query=ai tld=com limit=20
+dk whois example.com
+dk ct subdomains github.com
+dk help
+```
+
+Parameters after the command go to the API unchanged, as `key=value`, `--key=value` or `--key value`. The response body is printed as returned. `export=csv`, `export=txt` and `download` write a file instead. Exit code 0 is success, 1 an API error, 2 a usage or network error.
+
+The same key works for the REST API, the SDKs, the MCP server and this CLI.
+
+Sign up at [domainkits.com](https://domainkits.com/register) and create a key on your [dashboard](https://domainkits.com/dashboard). `dk download` works on a free account; the other commands need a plan that includes the API, see the [CLI guide](https://domainkits.com/dev/cli).
+
+## Use it for
+
+### [Newly registered domains](https://github.com/ABTdomain/newly-registered-domains)
+
+```bash
+dk search nrds query=ai tld=com limit=20   # search by keyword
+dk download tld=com type=domains_only      # pull the daily list
+```
+
+<p align="center">
+<a href="https://www.youtube.com/watch?v=l5L919wRKOI"><img src="https://img.youtube.com/vi/l5L919wRKOI/maxresdefault.jpg" alt="Video: How to find newly registered domains from your terminal with the DomainKits CLI" width="640"></a><br>
+<a href="https://www.youtube.com/watch?v=l5L919wRKOI">▶ Watch on YouTube: How to Find Newly Registered Domains From Your Terminal</a>
+</p>
+
+### [Expired domains](https://github.com/ABTdomain/expired-domains)
+
+```bash
+dk search expired query=shop status=pending_delete age_min=10   # pending delete names with a long history
+dk search expired tld=app status=redemption export=csv          # one TLD's redemption stage as a CSV file
+```
+
+## Related
+
+- [ABTdomain/domainkits-mcp](https://github.com/ABTdomain/domainkits-mcp): hosted MCP server for domain data
+- [ABTdomain/domainkits-sdk-py](https://github.com/ABTdomain/domainkits-sdk-py): Python client for the DomainKits domain data API
+- [ABTdomain/domainkits-sdk-go](https://github.com/ABTdomain/domainkits-sdk-go): Go client for the DomainKits domain data API
+- [ABTdomain/domainkits-sdk-js](https://github.com/ABTdomain/domainkits-sdk-js): TypeScript client for the DomainKits domain data API
 
 ## Resources
 
