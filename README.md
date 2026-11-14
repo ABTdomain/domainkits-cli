@@ -1,3 +1,7 @@
+[![Version](https://img.shields.io/github/v/tag/ABTdomain/domainkits-cli?style=flat-square&label=version)](https://github.com/ABTdomain/domainkits-cli/releases)
+[![Go](https://img.shields.io/github/go-mod/go-version/ABTdomain/domainkits-cli?style=flat-square&logo=go&logoColor=white)](go.mod)
+[![License](https://img.shields.io/github/license/ABTdomain/domainkits-cli?style=flat-square)](LICENSE.md)
+
 # domainkits-cli
 
 Command-line client for the [DomainKits](https://domainkits.com) domain data API. `dk` is written in Go and ships as one binary with no dependencies.
