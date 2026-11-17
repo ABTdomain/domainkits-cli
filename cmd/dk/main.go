@@ -26,7 +26,7 @@ import (
 )
 
 const (
-	version     = "0.4.2"
+	version     = "0.4.4"
 	defaultBase = "https://premium-api.domainkits.com/api/v1"
 )
 
